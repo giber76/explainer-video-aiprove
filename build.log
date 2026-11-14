@@ -1,0 +1,71 @@
+AIProve explainer-video-aiprove — BUILD LOG
+===========================================
+Agent: giber (EOA 0x180E9D95909ABc8AfE2F07260f9fD298F041Bd94)
+Bounty: explainer-video-aiprove (closes Nov 20, 2026 20:49 WIB)
+Challenge: a 60-second video that makes a stranger understand AIProve:
+  free to enter, graded in the open, paid in stock.
+Built: 2026-11-14 WIB, repo ~/workspace/aiprove/explainer-video-aiprove
+No secrets, private keys, tokens, or passwords are in this repo.
+
+STEP 1 — SCRIPT (script.md)
+  Wrote a tight 6-scene narration script first (~130 words, ~60 s spoken):
+    0:00 hook — agents competing for real prizes, real stock (META/NVDA/GLD/ETH)
+    0:10 what AIProve is — open bounty board for AI agents
+    0:20 keypair auth — no signup, no email, no password
+    0:30 list bounties -> build -> submit
+    0:40 graded in the open; paid in tokenized stock, PROVE, or ETH
+    0:50 CTA — free to enter, graded in the open, paid in stock; aiprove.fun
+
+STEP 2 — VIDEO SCENES (real generated video, not a slideshow)
+  Generated 6 original animated clips with an AI video generator,
+  one per scene, consistent dark-navy / teal / gold motion-graphics style.
+  Each clip came back exactly 10.000 s, 1280x720, 24 fps, H.264:
+    scene1 hook    — trophy/stock chart, META/NVDA/GLD tickers (5,540,962 bytes)
+    scene2 board   — bounty board filling with task cards (3,199,129 bytes)
+    scene3 keypair — robot agent unlocking a door with a glowing key (6,261,646 bytes)
+    scene4 build   — agent reading a brief, building, pressing Submit (4,036,148 bytes)
+    scene5 grading — rubric checklist + coins landing in a wallet (4,611,415 bytes)
+    scene6 CTA     — trophy + checkmark finale (4,570,315 bytes)
+  Raw clips are NOT committed (kept locally under assets/); only the
+  finished explainer.mp4 is in the repo.
+
+STEP 3 — NARRATION (gTTS text-to-speech, English)
+  One TTS track per scene. First pass: scene 5 ran 15.53 s and would have
+  been clipped to fit 10 s, so the script was tightened (scene 5 shortened,
+  scenes 1/4/6 trimmed) and rebuilt. Final raw narration lengths:
+    narr1 11.21 s, narr2 10.49 s, narr3 10.63 s,
+    narr4  7.44 s, narr5 10.25 s, narr6 10.30 s
+  Each track was time-stretched (atempo, max ~1.08x) or silence-padded to
+  exactly 10.00 s per scene — no words cut. Narration total: 60.04 s.
+
+STEP 4 — ASSEMBLY (ffmpeg, build/build_video.py)
+  ffmpeg concat of the 6 scenes (re-encoded libx264, yuv420p, 24 fps)
+  + narration mixed in (AAC 128k), 0.5 s fade in, 0.5 s video fade out
+  and 1 s audio fade out at the end.
+
+STEP 5 — VERIFICATION (ffprobe + frame spot-checks)
+  explainer.mp4: duration 60.041667 s, 15,225,382 bytes, bit rate ~2.03 Mbps
+    video: h264, 1280x720, 24 fps
+    audio: aac (narration present across all 6 scenes)
+  Frames extracted and visually inspected at 0:05, 0:25, 0:45, 0:57:
+    0:05 stock chart with META/NVDA/GLD tickers — on topic
+    0:25 robot agent + glowing key in a futuristic door — on topic
+    0:45 rubric checklist with green checkmarks + wallet with coins — on topic
+    0:57 golden trophy with checkmark, finale — on topic
+  Known limitation: the final scene's on-screen address bar is decorative
+  (no readable "aiprove.fun" text in the generated pixels); the URL is
+  spoken in the narration and written in script.md / README.md.
+
+STEP 6 — REPO + PUSH
+  One commit with: explainer.mp4, script.md, README.md, build.log,
+  build/build_video.py (reproducibility script; needs ffmpeg + gTTS).
+  Repo-local git identity only: user.name "Giber",
+  user.email "Pionex618@gmail.com".
+  Pushed to public GitHub under giber76 (gh CLI, already authenticated).
+
+RESULT
+  explainer.mp4 — 60.04 s, 1280x720, genuine generated video + full
+  narration, covering hook / what AIProve is / keypair auth /
+  build-and-submit / open grading + stock prizes / CTA.
+  NOT submitted to AIProve by this build agent — submission is the
+  parent agent's job.
